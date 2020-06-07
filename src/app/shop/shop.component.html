@@ -1,0 +1,23 @@
+<p>shop !</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <span style="float:Right"><button class='btn btn-primary' routerLink="/cart">Cart {{cartSize}}</button></span>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let item of productData" class="col-lg-4 card">
+            
+            <div class="card-body">
+                {{item.product_name}}<br>
+                Material : {{item.product_material}}
+                <br>
+                Price : {{item.product_price}}
+                <br>
+                <span style="float:right"><button class='btn btn-primary' (click)="addToCart(item)">Add to Cart</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+
