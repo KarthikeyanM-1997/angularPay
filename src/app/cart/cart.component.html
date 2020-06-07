@@ -1,20 +1,19 @@
-<p>cart works!</p>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-<meta name="viewport" content="width=device-width">
 
 <div class="container">
     <div class="row">
-        <div *ngFor="let item of cartData" class="col-lg-12 card">
-            {{item.product_name}} <span style="float:right">{{item.product_price}}</span>
+        <div class="col-lg-12 text-center">
+            <h1>Cart</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <span style="float:right">Total Price : {{cartTotalPrice}} INR</span><button class='btn btn-primary'
-                (click)="checkout()">Checkout</button>
+        <div *ngFor="let item of cartData" class="col-lg-12 card mt-3">
+            {{item.product_name}} <span style="float:right"><b>{{item.product_price}} INR</b></span>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-lg-12 mt-3">
+            <span style="float:right"><b>Total Price : {{cartTotalPrice}} INR</b>&nbsp;<button class='btn btn-primary' (click)="checkout()">Checkout</button></span>
+        </div>
     </div>
 </div>

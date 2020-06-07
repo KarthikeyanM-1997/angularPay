@@ -8,19 +8,25 @@ import { ShopComponent } from './shop/shop.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCart } from './product-cart';
+import { FinishedPaymentComponent } from './finished-payment/finished-payment.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
-    ShopComponent
+    ShopComponent,
+    FinishedPaymentComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [ProductCart],
   bootstrap: [AppComponent]

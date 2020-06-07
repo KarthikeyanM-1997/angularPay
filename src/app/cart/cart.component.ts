@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ProductCart } from '../product-cart';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+
+declare const Razorpay: any;
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +18,9 @@ export class CartComponent implements OnInit {
 
   cartTotalPrice: number = 0;
 
-  constructor(private productDataService: ProductCart, private http: HttpClient) {
+  public rzp: any;
+
+  constructor(private productDataService: ProductCart, private http: HttpClient, private router: Router, private zone: NgZone) {
 
   }
 
@@ -33,18 +38,38 @@ export class CartComponent implements OnInit {
 
   checkout() {
 
-    var body = {
-      amount: 50000,
-      currency: "INR",
-      receipt: "order_rcptid_1123",
-      payment_capture: '0'
+    let options = {
+      "key": "rzp_test_DrY9EdJEPPOfSG", // Enter the Key ID generated from the Dashboard
+      "amount": this.cartTotalPrice + "00", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Acme Corp",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "handler": this.paymentSuccess.bind(this),
+      "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#F37254"
+      }
     };
 
-    let header = new HttpHeaders({ "content-type": "application/json", 'mode' : 'no-cors' });
+    console.log(this.cartTotalPrice);
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
 
-    let options = { headers: header };
 
-    this.http.post("https://api.razorpay.com/v1/orders", body, options).subscribe((data) => { console.log(data); });
+  paymentSuccess(res: any) {
+    this.zone.run(() => {
+      console.log(res);
+      this.router.navigate(["/paymentSuccess"])
+    });
   }
 
 }

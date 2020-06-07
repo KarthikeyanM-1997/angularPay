@@ -1,12 +1,10 @@
-<p>shop !</p>
-
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <span style="float:Right"><button class='btn btn-primary' routerLink="/cart">Cart {{cartSize}}</button></span>
+            <span style="float:Right">Items in Cart {{cartSize}} <button class='btn btn-primary' style="margin:10px" (click)="clearCart()">Clear Cart</button> <button class='btn btn-primary' routerLink="/cart">Checkout</button></span>
         </div>
     </div>
-    <div class="row">
+    <div class="row m-2 p-2">
         <div *ngFor="let item of productData" class="col-lg-4 card">
             
             <div class="card-body">

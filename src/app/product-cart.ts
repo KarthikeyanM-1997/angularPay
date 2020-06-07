@@ -4,9 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class ProductCart {
 
-    private messageSource = new BehaviorSubject('default message');
-    currentMessage = this.messageSource.asObservable();
-
     private cartList = new BehaviorSubject<any>([]);
     cartObservable = this.cartList.asObservable();
 
@@ -18,9 +15,6 @@ export class ProductCart {
 
     constructor() { }
 
-    changeMessage(message: string) {
-        this.messageSource.next(message)
-    }
 
     setProductList(products: any) {
         this.productList.next(products);
@@ -31,6 +25,11 @@ export class ProductCart {
         const updatedValue = [...currentValue, product];
         this.cartList.next(updatedValue);
         this.cartSize.next(this.cartSize.value + 1);
+    }
+
+    clearCart(){
+        this.cartList.next([]);
+        this.cartSize.next(0);
     }
 
 }
